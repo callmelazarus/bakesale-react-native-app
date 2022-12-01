@@ -1,2 +1,0 @@
-let yelp_api_key =
-  'UiiWGpK87lHPT35JfEvgVty5qDL7bhYKFGmziYL9fr7hcPT7j6A5Klap3V7G5v6HyjP2RCEICii8VXkrXDjCwjfAvZD2Anja-OBDBZgQL3UKIwuYQciWOp-njT-IY3Yx';
