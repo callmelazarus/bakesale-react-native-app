@@ -64,4 +64,4 @@ buck-out/
 /vendor/bundle/
 
 # keys
-keys.py
+keys.js
