@@ -2,13 +2,23 @@
 
 ---
 
-## Nov
+## Dec
 
 **Today I worked on:**
 **Reflection:**
 **Lesson:**
 
 ---
+
+## Dec 12, 2022 - Mon
+
+**Today I worked on:**
+
+**Reflection:**
+Getting back into it, and it looks like bakesale now works!
+
+**Lesson:**
+
 
 ## Nov 30, 2022 - Wed
 
@@ -26,6 +36,7 @@ https://www.yelp.com/developers/v3/manage_app?app_created=True
 
 **Lesson:**
 
+- make sure you have the right file names in the gitignore file
 - hitting these roadblocks really do suck, but need to have the right attitude and strategy about them
 
 ## Nov 29, 2022 - Tuesday
