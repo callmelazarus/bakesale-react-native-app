@@ -72,12 +72,10 @@ const styles = StyleSheet.create({
   },
   backLink: {
     marginBottom: 5,
-    color: '#22f'
+    color: '#22f',
+    marginLeft: 10
   },
-  deal: {
-    marginHorizontal: 12,
-    marginTop: 50
-  },
+
   info: {
     padding: 10,
     backgroundColor: '#fff',

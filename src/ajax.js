@@ -29,7 +29,23 @@ async fetchDealDetail(dealId) {
     console.error(error);
   }
 },
+
+// ajax call for searches based on searchterm
+
+async fetchDealsSearchResults(searchTerm) {
+  try {
+    const response = await fetch(apiHost + '/api/deals?searchTerm=' + searchTerm);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+},
+
+
 };
+
+
 
 
 // yelp api below (not used)

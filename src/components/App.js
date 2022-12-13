@@ -4,12 +4,13 @@ import {View, Text, StyleSheet} from 'react-native';
 import ajax from '../ajax';
 import DealList from './DealList';
 import DealDetail from './DealDetail';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 
 class App extends React.Component {
   state = {
-    deals: [],
-    currentDealId: null,
+    deals: [], // default search items upon component mounting
+    dealsFromSearch: [], // create an array for searched items
+    currentDealId: null, // dealID based on item pressed
   };
 
   async componentDidMount() {
@@ -17,6 +18,18 @@ class App extends React.Component {
     // lets store the deals in the state
     this.setState({deals});
   }
+
+  // set state of deals from search, calling ajax function that searches API
+  searchDeals = async searchTerm => {
+    // initialize search as empty
+    let dealsFromSearch = [];
+
+    // if search term exists, then run the fetch call
+    if (searchTerm) {
+      dealsFromSearch = await ajax.fetchDealsSearchResults(searchTerm);
+    }
+    this.setState({dealsFromSearch});
+  };
 
   //set current deal based on pressed DealItem
   // this is passed down to DealList, which is then passed down to dealItem
@@ -41,17 +54,26 @@ class App extends React.Component {
   render() {
     if (this.state.currentDealId) {
       return (
-        <DealDetail
-          initialDealData={this.currentDeal()}
-          onBack={this.unsetCurrentDeal}
-        />
+        <View style={styles.main}>
+          <DealDetail
+            initialDealData={this.currentDeal()}
+            onBack={this.unsetCurrentDeal}
+          />
+        </View>
       );
     }
-    if (this.state.deals.length > 0) {
+    const dealsToDisplay =
+      this.state.dealsFromSearch.length > 0
+        ? this.state.dealsFromSearch
+        : this.state.deals;
+    if (dealsToDisplay.length > 0) {
       return (
-        <View>
-        <SearchBar />
-        <DealList deals={this.state.deals} onItemPress={this.setCurrentDeal} />
+        <View style={styles.main}>
+          <SearchBar searchDeals={this.searchDeals} />
+          <DealList
+            deals={dealsToDisplay}
+            onItemPress={this.setCurrentDeal}
+          />
         </View>
       );
     }
@@ -68,6 +90,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  main: {
+    marginTop: 50,
   },
   header: {
     fontSize: 40,
