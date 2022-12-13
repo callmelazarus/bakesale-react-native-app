@@ -6,6 +6,7 @@ import DealItem from './DealItem'
 // this will show a list of DealItem components
 
 class DealList extends React.Component {
+
   static propTypes = {
     deals: PropTypes.array.isRequired,
     onItemPress: PropTypes.func.isRequired,

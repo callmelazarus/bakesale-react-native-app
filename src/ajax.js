@@ -4,7 +4,7 @@
 const apiHost = 'https://bakesaleforgood.com';
 
 
-// create API to fetch deals
+// create API to fetch deals as a list
 export default {
   async fetchInitialDeals() {
     try {
@@ -16,8 +16,20 @@ export default {
       console.error(error);
     }
   },
-};
 
+
+// lets get the information for specific deals now
+
+async fetchDealDetail(dealId) {
+  try {
+    const response = await fetch(apiHost + '/api/deals/' + dealId);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+},
+};
 
 
 // yelp api below (not used)
