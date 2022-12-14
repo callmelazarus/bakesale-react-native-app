@@ -1,19 +1,47 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Easing,
+  Dimensions,
+} from 'react-native';
 import ajax from '../ajax';
 import DealList from './DealList';
 import DealDetail from './DealDetail';
 import SearchBar from './SearchBar';
 
 class App extends React.Component {
+  // starting using animcated values
+  titleXPos = new Animated.Value(0);
+
   state = {
     deals: [], // default search items upon component mounting
     dealsFromSearch: [], // create an array for searched items
     currentDealId: null, // dealID based on item pressed
   };
+  //animation to have word bounce left to right,considering the dimension of the screen
+  // used Dimension library, and the Easing library
+  animateTitle = (direction = 1) => {
+    const width = Dimensions.get('window').width - 200;
+    Animated.timing(this.titleXPos, {
+      toValue: (direction * width) / 2,
+      duration: 1000,
+      easing: Easing.ease,
+    }).start(({finished}) => {
+//cleanup fxn to prevent animation from moving on forever
+if (finished) {
+  this.animateTitle(-1 * direction);
+
+}
+    });
+  };
 
   async componentDidMount() {
+    this.animateTitle();
+
     const deals = await ajax.fetchInitialDeals();
     // lets store the deals in the state
     this.setState({deals});
@@ -70,17 +98,14 @@ class App extends React.Component {
       return (
         <View style={styles.main}>
           <SearchBar searchDeals={this.searchDeals} />
-          <DealList
-            deals={dealsToDisplay}
-            onItemPress={this.setCurrentDeal}
-          />
+          <DealList deals={dealsToDisplay} onItemPress={this.setCurrentDeal} />
         </View>
       );
     }
     return (
-      <View style={styles.container}>
+      <Animated.View style={[{left: this.titleXPos}, styles.container]}>
         <Text style={styles.header}>Bake it up!</Text>
-      </View>
+      </Animated.View>
     );
   }
 }

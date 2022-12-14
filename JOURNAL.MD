@@ -13,12 +13,15 @@
 ## Dec 12, 2022 - Mon
 
 **Today I worked on:**
+Finishing the BakeSale application (took about 3.5 hours for a 1 hour video tutorial)
+
 
 **Reflection:**
 Getting back into it, and it looks like bakesale now works!
+On press functionality is a combination of state setting, and funcitons
 
 **Lesson:**
-
+Debouncing -> ensures code fires only one time per input (search boxes, text-field autosaves, and eliminating double clipes are all use cases for debounce)
 
 ## Nov 30, 2022 - Wed
 
