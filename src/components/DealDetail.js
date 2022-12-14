@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   PanResponder,
   Dimensions,
+  Button,
   Animated,
+  Linking,
 } from 'react-native';
 import {priceDisplay} from '../util';
 import ajax from '../ajax';
@@ -94,6 +96,10 @@ class DealDetail extends React.Component {
     this.setState({deal: fullDeal});
   }
 
+  openDealUrl = () => {
+    Linking.openURL(this.state.deal.url)
+  }
+
   render() {
     // destructure props so that we don't keep typing this.props.deal
     const {deal} = this.state;
@@ -127,6 +133,7 @@ class DealDetail extends React.Component {
         <View>
           <Text>{deal.description}</Text>
         </View>
+        <Button title="Buy this deal" onPress={this.openDealUrl} />
       </View>
     );
   }
