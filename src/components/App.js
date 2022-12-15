@@ -21,6 +21,7 @@ class App extends React.Component {
     deals: [], // default search items upon component mounting
     dealsFromSearch: [], // create an array for searched items
     currentDealId: null, // dealID based on item pressed
+    activeSearchTerm: '', // persist the search Term
   };
   //animation to have word bounce left to right,considering the dimension of the screen
   // used Dimension library, and the Easing library
@@ -31,11 +32,10 @@ class App extends React.Component {
       duration: 1000,
       easing: Easing.ease,
     }).start(({finished}) => {
-//cleanup fxn to prevent animation from moving on forever
-if (finished) {
-  this.animateTitle(-1 * direction);
-
-}
+      //cleanup fxn to prevent animation from moving on forever
+      if (finished) {
+        this.animateTitle(-1 * direction);
+      }
     });
   };
 
@@ -56,7 +56,7 @@ if (finished) {
     if (searchTerm) {
       dealsFromSearch = await ajax.fetchDealsSearchResults(searchTerm);
     }
-    this.setState({dealsFromSearch});
+    this.setState({dealsFromSearch, activeSearchTerm: searchTerm});
   };
 
   //set current deal based on pressed DealItem
@@ -97,7 +97,10 @@ if (finished) {
     if (dealsToDisplay.length > 0) {
       return (
         <View style={styles.main}>
-          <SearchBar searchDeals={this.searchDeals} />
+          <SearchBar
+            searchDeals={this.searchDeals}
+            initialSearchTerm={this.state.activeSearchTerm}
+          />
           <DealList deals={dealsToDisplay} onItemPress={this.setCurrentDeal} />
         </View>
       );

@@ -10,11 +10,29 @@
 
 ---
 
+## Dec 14, 2022 - Wed
+
+**Today I worked on:**
+worked on animations
+fixed some bugs
+learned about icons and splash screens
+learned about deployment
+
+**Reflection:**
+I was derailed, the devops stuff took up nearly 2 hours of my time this afternoon. That is just how it goes sometimes, but instead, I learned more about configurations, making sure I read thru the docs (which was important that I installed the right dependencies).
+
+**Lesson:**
+read the docs man! from top to bottom. it will save you time in the long run.
+
+VIM editing tools - there are many shortcuts in how to navigate the VIM
+
+`source` keyword refreshes a file
+`cat` keyword allows you to inspect a file
+
 ## Dec 12, 2022 - Mon
 
 **Today I worked on:**
 Finishing the BakeSale application (took about 3.5 hours for a 1 hour video tutorial)
-
 
 **Reflection:**
 Getting back into it, and it looks like bakesale now works!

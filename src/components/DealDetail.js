@@ -11,6 +11,7 @@ import {
   Button,
   Animated,
   Linking,
+  ScrollView,
 } from 'react-native';
 import {priceDisplay} from '../util';
 import ajax from '../ajax';
@@ -41,7 +42,7 @@ class DealDetail extends React.Component {
         Animated.timing(this.imageXPos, {
           toValue: direction * this.width,
           duration: 250,
-        }).start(() => this.handleSwipe(-1*direction));
+        }).start(() => this.handleSwipe(-1 * direction));
       } else {
         Animated.spring(this.imageXPos, {
           toValue: 0,
@@ -52,7 +53,7 @@ class DealDetail extends React.Component {
 
   // changing images when we swipe
   // indexDirection will tell us if we are going right or left
-  handleSwipe = (indexDirection) => {
+  handleSwipe = indexDirection => {
     // guard if image doesn't exist (image index doesn't exceed 1)
     if (!this.state.deal.media[this.state.imageIndex + indexDirection]) {
       //reset partial swipe
@@ -97,15 +98,15 @@ class DealDetail extends React.Component {
   }
 
   openDealUrl = () => {
-    Linking.openURL(this.state.deal.url)
-  }
+    Linking.openURL(this.state.deal.url);
+  };
 
   render() {
     // destructure props so that we don't keep typing this.props.deal
     const {deal} = this.state;
 
     return (
-      <View style={styles.deal}>
+      <ScrollView style={styles.deal}>
         <TouchableOpacity onPress={this.props.onBack}>
           <Text style={styles.backLink}> Back </Text>
         </TouchableOpacity>
@@ -116,30 +117,34 @@ class DealDetail extends React.Component {
           style={[{left: this.imageXPos}, styles.image]}
         />
 
-        <View style={styles.info}>
-          <Text style={styles.title}>{deal.title}</Text>
-          <View style={styles.footer}>
-            <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
-            <Text style={styles.cause}>{deal.cause.name}</Text>
+          <View style={styles.info}>
+            <Text style={styles.title}>{deal.title}</Text>
+            <View style={styles.footer}>
+              <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
+              <Text style={styles.cause}>{deal.cause.name}</Text>
+            </View>
           </View>
-        </View>
 
-        {deal.user && (
+          {deal.user && (
+            <View>
+              <Image source={{uri: deal.user.avatar}} style={styles.avatar} />
+              <Text>{deal.user.name}</Text>
+            </View>
+          )}
           <View>
-            <Image source={{uri: deal.user.avatar}} style={styles.avatar} />
-            <Text>{deal.user.name}</Text>
+            <Text>{deal.description}</Text>
           </View>
-        )}
-        <View>
-          <Text>{deal.description}</Text>
-        </View>
-        <Button title="Buy this deal" onPress={this.openDealUrl} />
-      </View>
+          <Button title="Buy this deal" onPress={this.openDealUrl} />
+
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  deal: {
+    marginBottom: 30,
+  },
   image: {
     width: '100%',
     height: 150,
